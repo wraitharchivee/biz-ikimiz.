@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>biz,ikimiz.</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
+
+<div id="loginOverlay">
+  <div class="login-card" id="loginCard">
+    <h1 class="text-5xl wasted-font text-sky-600 mb-8">biz,ikimiz. 🩵</h1>
+    <div id="userSelection" class="space-y-4">
+      <button onclick="selectUser('MokmokBey')" class="user-btn sky-btn">
+        🐈 MokmokBey</span>
+        <i class="fas fa-heart"></i>
+      </button>
+      <button onclick="selectUser('Mokmokella')" class="user-btn pink-btn">
+        <span>🐈‍⬛ Mokmokella Hanim</span>
+        <i class="fas fa-heart"></i>
+      </button>
+    </div>
+    <div id="passwordArea" class="hidden space-y-4">
+      <p id="selectedUserLabel" class="text-sky-500 font-bold"></p>
+      <input type="tel" id="passInput" placeholder="ne acaba..." class="password-input">
+      <button onclick="checkPassword()" class="login-btn">mokmok yap.</button>
+      <p id="errorMsg" class="error-text hidden">Mokmoklanma başarısız oldu ! 😏</p>
+    </div>
+  </div>
+</div>
+
+<header class="main-header">
+  <h1 class="text-4xl wasted-font text-sky-600">biz,ikimiz.</h1>
+</header>
+
+<div id="chatPage" class="page active-page">
+  <div id="notesList" class="messages-container no-scrollbar"></div>
+  <div class="input-container glass">
+    <input id="noteInput" type="text" placeholder="Mokmokla..." class="chat-input">
+    <button onclick="saveNote()" class="send-btn"><i class="fas fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<div id="foodPage" class="page">
+  <div class="food-container">
+    <div class="food-card glass">
+      <div class="text-6xl mb-4">😋</div>
+      <h2 class="text-3xl wasted-font text-sky-700">bugün ne yicez askimmlaa?</h2>
+      <div id="mealDisplay" class="meal-box">Mokmoklanmaya hazır mısın?</div>
+      <button onclick="rollMeal()" class="roll-btn">ACIKTIM BAKİYİİMMM 😋😡</button>
+    </div>
+  </div>
+</div>
+
+<nav class="bottom-nav glass">
+  <button onclick="showPage('chatPage', this)" class="nav-btn active-nav"><i class="fas fa-comment-dots text-2xl"></i></button>
+  <button onclick="showPage('foodPage', this)" class="nav-btn"><i class="fas fa-utensils text-2xl"></i></button>
+</nav>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
