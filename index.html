@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap" rel="stylesheet">
 
     <style>
-        /* Tam ekran için sayfa kaymasını engelle */
+        /* Tam ekran için temel ayarlar */
         html, body { 
             margin: 0; padding: 0; height: 100%; width: 100%; 
             overflow: hidden; position: fixed; 
@@ -31,8 +31,36 @@
         .wasted-font { font-family: 'Caveat', cursive; }
         .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
         
-        #loginOverlay { position: fixed; inset: 0; background: #bae6fd; z-index: 9999; display: flex; align-items: center; justify-content: center; }
-        .login-card { background: white; padding: 2.5rem; border-radius: 3rem; width: 90%; max-width: 400px; text-align: center; }
+        /* --- AÇILIŞ ANIMASYONU (SPLASH SCREEN) --- */
+        #splashScreen {
+            position: fixed; inset: 0;
+            background: #bae6fd; /* Bebek mavisi arka plan */
+            z-index: 10000; /* Her şeyin üstünde */
+            display: flex; align-items: center; justify-content: center;
+            transition: opacity 0.5s ease-out; /* Kaybolurken yumuşak geçiş */
+        }
+
+        /* Dönen, Büyüyen, Parıldayan Kalp */
+        .splash-heart {
+            font-size: 150px; /* Büyük kalp */
+            color: #0ed5e9; /* Parıltılı Turkuaz */
+            text-shadow: 0 0 20px #0ed5e9, 0 0 40px #fff; /* Parıltı efekti */
+            animation: heartSplash 2.5s ease-in-out infinite; /* Animasyonu bağla */
+        }
+
+        /* Animasyon Tanımları */
+        @keyframes heartSplash {
+            0% { transform: scale(0.3) rotate(0deg); opacity: 0; } /* Küçük, dönmüyor, görünmez */
+            20% { opacity: 1; } /* Hızla görünür ol */
+            50% { transform: scale(1.2) rotate(180deg); opacity: 1; } /* Ekrana doğru büyü, yarım tur dön */
+            80% { opacity: 1; } /* Görünür kal */
+            100% { transform: scale(3) rotate(360deg); opacity: 0; } /* Çok büyük, tam tur dön, kaybol */
+        }
+        /* --- AÇILIŞ ANIMASYONU BİTİŞ --- */
+
+        /* Giriş */
+        #loginOverlay { position: fixed; inset: 0; background: #bae6fd; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: 0.5s; opacity: 1; }
+        .login-card { background: white; padding: 2.5rem; border-radius: 3rem; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
         .user-btn { width: 100%; padding: 1.25rem; border-radius: 1.5rem; display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 1rem; border: none; cursor: pointer; }
         .sky-btn { background: #f0f9ff; color: #0369a1; border: 2px solid #7dd3fc; }
         .pink-btn { background: #fdf2f8; color: #be185d; border: 2px solid #f9a8d4; }
@@ -51,10 +79,23 @@
         .active-nav { color: #0ea5e9; transform: scale(1.2); }
         .input-container { position: fixed; bottom: 6.5rem; left: 1.5rem; right: 1.5rem; padding: 0.5rem; border-radius: 3rem; display: flex; align-items: center; }
         .chat-input { flex: 1; background: transparent; padding: 0.8rem 1.2rem; border: none; outline: none; }
-        .send-btn { background: #0ea5e9; color: white; width: 3.5rem; height: 3.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; }
+        .send-btn { background: #0ea5e9; color: white; width: 3.5rem; height: 3.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; }
+
+        .shake { animation: shake 0.4s; }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+
+        /* Yemek Kartı */
+        .food-card { padding: 2rem; border-radius: 3rem; text-align: center; margin: auto; width: 90%; max-width: 350px; }
+        .meal-box { background: rgba(255,255,255,0.5); margin: 1.5rem 0; padding: 1.2rem; border-radius: 1.5rem; font-weight: bold; min-height: 80px; display: flex; align-items: center; justify-content: center; border: 1px dashed #7dd3fc; }
     </style>
 </head>
 <body>
+
+    <div id="splashScreen">
+        <div class="splash-heart wasted-font">🩵</div>
+    </div>
+
     <div id="loginOverlay">
         <div class="login-card">
             <h1 class="text-5xl wasted-font text-sky-600 mb-8">biz,ikimiz. 🩵</h1>
@@ -66,6 +107,7 @@
                 <p id="selectedUserLabel" class="text-sky-500 font-bold italic"></p>
                 <input type="tel" id="passInput" placeholder="neydi acaba? 🤔" class="password-input">
                 <button onclick="checkPassword()" class="login-btn">mokmok yap...</button>
+                <p id="errorMsg" class="text-red-500 text-sm font-bold hidden mt-2">Mokmoklanma başarısız oldu ! 😏</p>
             </div>
         </div>
     </div>
@@ -96,12 +138,22 @@
     </nav>
 
     <script>
-        // Firebase ve Fonksiyonlar buraya (Değişmedi)
+        // Firebase Config ve Temel Fonksiyonlar Aynı Kalıyor
         const firebaseConfig = { apiKey: "AIzaSyCPGow-3OQWOMpAN1X3O8OyKxP-ldFwjCA", authDomain: "mokmok-s.firebaseapp.com", databaseURL: "https://mokmok-s-default-rtdb.firebaseio.com", projectId: "mokmok-s", storageBucket: "mokmok-s.firebasestorage.app", messagingSenderId: "133265891997", appId: "1:133265891997:web:cbcc57323e368eecd36a74" };
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
         let currentUser = "";
         const passwords = { "MokmokBey": "3091", "Mokmokella": "1326" };
+
+        // AÇILIŞ ANIMASYONU KONTROLÜ
+        // Uygulama yüklendikten 3 saniye sonra splash screen'i kaldır
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const splash = document.getElementById('splashScreen');
+                splash.style.opacity = '0'; // Yumuşak kaybolma
+                setTimeout(() => splash.style.display = 'none', 500); // 0.5 saniye sonra tamamen yok et
+            }, 3000); // 3 saniye göster (Heyecan artsın 😏)
+        });
 
         function selectUser(user) {
             currentUser = user;
@@ -113,9 +165,14 @@
         function checkPassword() {
             const input = document.getElementById('passInput').value;
             if(input === passwords[currentUser]) {
-                document.getElementById('loginOverlay').style.display = 'none';
+                document.getElementById('loginOverlay').style.opacity = '0'; // Giriş ekranını kaldır
+                setTimeout(() => document.getElementById('loginOverlay').style.display = 'none', 500);
                 loadMessages();
-            } else { alert("Yanlış şifre kanka!"); }
+            } else {
+                document.getElementById('loginCard').classList.add('shake');
+                document.getElementById('errorMsg').classList.remove('hidden');
+                setTimeout(() => document.getElementById('loginCard').classList.remove('shake'), 400);
+            }
         }
 
         function showPage(pageId, btn) {
