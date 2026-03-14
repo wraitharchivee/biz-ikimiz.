@@ -34,29 +34,26 @@
         /* --- AÇILIŞ ANIMASYONU (SPLASH SCREEN) --- */
         #splashScreen {
             position: fixed; inset: 0;
-            background: #bae6fd; /* Bebek mavisi arka plan */
-            z-index: 10000; /* Her şeyin üstünde */
+            background: #bae6fd;
+            z-index: 10000;
             display: flex; align-items: center; justify-content: center;
-            transition: opacity 0.5s ease-out; /* Kaybolurken yumuşak geçiş */
+            transition: opacity 0.5s ease-out;
         }
 
-        /* Dönen, Büyüyen, Parıldayan Kalp */
         .splash-heart {
-            font-size: 150px; /* Büyük kalp */
-            color: #0ed5e9; /* Parıltılı Turkuaz */
-            text-shadow: 0 0 20px #0ed5e9, 0 0 40px #fff; /* Parıltı efekti */
-            animation: heartSplash 2.5s ease-in-out infinite; /* Animasyonu bağla */
+            font-size: 150px;
+            color: #0ed5e9;
+            text-shadow: 0 0 20px #0ed5e9, 0 0 40px #fff;
+            animation: heartSplash 2.5s ease-in-out infinite;
         }
 
-        /* Animasyon Tanımları */
         @keyframes heartSplash {
-            0% { transform: scale(0.3) rotate(0deg); opacity: 0; } /* Küçük, dönmüyor, görünmez */
-            20% { opacity: 1; } /* Hızla görünür ol */
-            50% { transform: scale(1.2) rotate(180deg); opacity: 1; } /* Ekrana doğru büyü, yarım tur dön */
-            80% { opacity: 1; } /* Görünür kal */
-            100% { transform: scale(3) rotate(360deg); opacity: 0; } /* Çok büyük, tam tur dön, kaybol */
+            0% { transform: scale(0.3) rotate(0deg); opacity: 0; }
+            20% { opacity: 1; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: scale(3) rotate(360deg); opacity: 0; }
         }
-        /* --- AÇILIŞ ANIMASYONU BİTİŞ --- */
 
         /* Giriş */
         #loginOverlay { position: fixed; inset: 0; background: #bae6fd; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: 0.5s; opacity: 1; }
@@ -84,10 +81,6 @@
         .shake { animation: shake 0.4s; }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-
-        /* Yemek Kartı */
-        .food-card { padding: 2rem; border-radius: 3rem; text-align: center; margin: auto; width: 90%; max-width: 350px; }
-        .meal-box { background: rgba(255,255,255,0.5); margin: 1.5rem 0; padding: 1.2rem; border-radius: 1.5rem; font-weight: bold; min-height: 80px; display: flex; align-items: center; justify-content: center; border: 1px dashed #7dd3fc; }
     </style>
 </head>
 <body>
@@ -97,7 +90,7 @@
     </div>
 
     <div id="loginOverlay">
-        <div class="login-card">
+        <div class="login-card" id="loginCard">
             <h1 class="text-5xl wasted-font text-sky-600 mb-8">biz,ikimiz. 🩵</h1>
             <div id="userSelection" class="space-y-4">
                 <button onclick="selectUser('MokmokBey')" class="user-btn sky-btn"><span>🐈 Mokmok Bey</span><i class="fas fa-heart"></i></button>
@@ -125,9 +118,9 @@
     <div id="foodPage" class="page">
         <div class="flex items-center justify-center h-full">
             <div class="glass p-8 rounded-[3rem] text-center w-80">
-                <h2 class="text-3xl wasted-font text-sky-700 mb-4">ne yicez?</h2>
-                <div id="mealDisplay" class="bg-white/50 p-6 rounded-2xl italic font-bold text-sky-700 mb-6">Bekleniyor...</div>
-                <button onclick="rollMeal()" class="w-full bg-sky-500 text-white py-4 rounded-2xl font-bold">ACIKTIM 😋😡</button>
+                <h2 class="text-3xl wasted-font text-sky-700 mb-4">ne yicezzzz?</h2>
+                <div id="mealDisplay" class="bg-white/50 p-6 rounded-2xl italic font-bold text-sky-700 mb-6">Mokmoklanman bekleniyorrr...</div>
+                <button onclick="rollMeal()" class="w-full bg-sky-500 text-white py-4 rounded-2xl font-bold">ACIKTIM BAAKİİYİMM😋😡</button>
             </div>
         </div>
     </div>
@@ -138,21 +131,25 @@
     </nav>
 
     <script>
-        // Firebase Config ve Temel Fonksiyonlar Aynı Kalıyor
         const firebaseConfig = { apiKey: "AIzaSyCPGow-3OQWOMpAN1X3O8OyKxP-ldFwjCA", authDomain: "mokmok-s.firebaseapp.com", databaseURL: "https://mokmok-s-default-rtdb.firebaseio.com", projectId: "mokmok-s", storageBucket: "mokmok-s.firebasestorage.app", messagingSenderId: "133265891997", appId: "1:133265891997:web:cbcc57323e368eecd36a74" };
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
         let currentUser = "";
         const passwords = { "MokmokBey": "3091", "Mokmokella": "1326" };
 
-        // AÇILIŞ ANIMASYONU KONTROLÜ
-        // Uygulama yüklendikten 3 saniye sonra splash screen'i kaldır
+        // SERVICE WORKER KAYDI (Flofly'dan ayırmak için)
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js').catch(() => {});
+        }
+
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const splash = document.getElementById('splashScreen');
-                splash.style.opacity = '0'; // Yumuşak kaybolma
-                setTimeout(() => splash.style.display = 'none', 500); // 0.5 saniye sonra tamamen yok et
-            }, 3000); // 3 saniye göster (Heyecan artsın 😏)
+                if(splash) {
+                    splash.style.opacity = '0';
+                    setTimeout(() => splash.style.display = 'none', 500);
+                }
+            }, 3000);
         });
 
         function selectUser(user) {
@@ -165,7 +162,7 @@
         function checkPassword() {
             const input = document.getElementById('passInput').value;
             if(input === passwords[currentUser]) {
-                document.getElementById('loginOverlay').style.opacity = '0'; // Giriş ekranını kaldır
+                document.getElementById('loginOverlay').style.opacity = '0';
                 setTimeout(() => document.getElementById('loginOverlay').style.display = 'none', 500);
                 loadMessages();
             } else {
