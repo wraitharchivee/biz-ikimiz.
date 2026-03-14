@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>biz,ikimiz. 🩵</title>
 
-    <link rel="apple-touch-icon" href="https://www.dropbox.com/scl/fi/cvpg52fu61wz08k5rh7q7/IMG-20260214-WA0011.jpg?rlkey=ywind70zjx7wjfnbavyj6wp6g&st=88w0au4i&raw=1">
-    <link rel="icon" type="image/jpeg" href="https://www.dropbox.com/scl/fi/cvpg52fu61wz08k5rh7q7/IMG-20260214-WA0011.jpg?rlkey=ywind70zjx7wjfnbavyj6wp6g&st=88w0au4i&raw=1">
+    <link rel="apple-touch-icon" href="https://dl.dropboxusercontent.com/scl/fi/cvpg52fu61wz08k5rh7q7/IMG-20260214-WA0011.jpg?rlkey=ywind70zjx7wjfnbavyj6wp6g">
+    <link rel="icon" type="image/jpeg" href="https://dl.dropboxusercontent.com/scl/fi/cvpg52fu61wz08k5rh7q7/IMG-20260214-WA0011.jpg?rlkey=ywind70zjx7wjfnbavyj6wp6g">
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -23,14 +23,23 @@
         .wasted-font { font-family: 'Caveat', cursive; }
         .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.3); }
         
+        /* Ana Ekrana Ekle Uyarısı */
+        #pwaBadge {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            background: #0ea5e9; color: white; padding: 12px 20px; border-radius: 50px;
+            z-index: 10000; font-weight: bold; box-shadow: 0 10px 15px rgba(0,0,0,0.2);
+            display: flex; align-items: center; gap: 10px; animation: bounce 2s infinite; cursor: pointer;
+        }
+        @keyframes bounce { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -10px); } }
+
         /* Giriş Ekranı */
         #loginOverlay { position: fixed; inset: 0; background: #bae6fd; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: 0.5s; }
         .login-card { background: white; padding: 2.5rem; border-radius: 3rem; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-        .user-btn { width: 100%; padding: 1.25rem; border-radius: 1.5rem; display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 1rem; transition: 0.2s; }
+        .user-btn { width: 100%; padding: 1.25rem; border-radius: 1.5rem; display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 1rem; transition: 0.2s; border: none; cursor: pointer; }
         .sky-btn { background: #f0f9ff; color: #0369a1; border: 2px solid #7dd3fc; }
         .pink-btn { background: #fdf2f8; color: #be185d; border: 2px solid #f9a8d4; }
         .password-input { width: 100%; padding: 1rem; border-radius: 1.25rem; border: 2px solid #e0f2fe; text-align: center; font-size: 1.5rem; outline: none; }
-        .login-btn { width: 100%; background: #0ea5e9; color: white; padding: 1.25rem; border-radius: 1.5rem; font-weight: bold; margin-top: 1rem; }
+        .login-btn { width: 100%; background: #0ea5e9; color: white; padding: 1.25rem; border-radius: 1.5rem; font-weight: bold; margin-top: 1rem; border: none; cursor: pointer; }
 
         /* Mesajlar */
         .page { display: none; height: 100vh; flex-direction: column; padding-top: 70px; }
@@ -42,11 +51,11 @@
 
         /* Alt Nav & Input */
         .bottom-nav { position: fixed; bottom: 1.5rem; left: 2rem; right: 2rem; border-radius: 2.5rem; padding: 1rem; display: flex; justify-content: space-around; z-index: 50; }
-        .nav-btn { color: #bae6fd; font-size: 1.5rem; transition: 0.3s; }
+        .nav-btn { color: #bae6fd; font-size: 1.5rem; transition: 0.3s; background: none; border: none; cursor: pointer; }
         .active-nav { color: #0ea5e9; transform: scale(1.2); }
         .input-container { position: fixed; bottom: 6.5rem; left: 1.5rem; right: 1.5rem; padding: 0.5rem; border-radius: 3rem; display: flex; align-items: center; }
-        .chat-input { flex: 1; background: transparent; padding: 0.8rem 1.2rem; outline: none; }
-        .send-btn { background: #0ea5e9; color: white; width: 3.5rem; height: 3.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .chat-input { flex: 1; background: transparent; padding: 0.8rem 1.2rem; outline: none; border: none; }
+        .send-btn { background: #0ea5e9; color: white; width: 3.5rem; height: 3.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; }
 
         .shake { animation: shake 0.4s; }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
@@ -58,6 +67,10 @@
     </style>
 </head>
 <body>
+
+    <div id="pwaBadge" onclick="this.style.display='none'">
+        <i class="fas fa-plus-circle"></i> Ana Ekrana Eklemeyi Unutma Bibimmm! 🩵
+    </div>
 
     <div id="loginOverlay">
         <div class="login-card" id="loginCard">
@@ -75,7 +88,7 @@
             <div id="passwordArea" class="hidden space-y-4">
                 <p id="selectedUserLabel" class="text-sky-500 font-bold italic"></p>
                 <input type="tel" id="passInput" placeholder="neydi acaba? 🤔" class="password-input">
-                <button onclick="checkPassword()"mokmok yap...</button>
+                <button onclick="checkPassword()" class="login-btn">mokmok yap...</button>
                 <p id="errorMsg" class="text-red-500 text-sm font-bold hidden mt-2">Mokmoklanma başarısız oldu ! 😏</p>
             </div>
         </div>
@@ -108,6 +121,11 @@
     </nav>
 
     <script>
+        // PWA Kontrolü (Zaten ekliyse uyarıyı gizle)
+        if (window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches) {
+            document.getElementById('pwaBadge').style.display = 'none';
+        }
+
         const firebaseConfig = {
             apiKey: "AIzaSyCPGow-3OQWOMpAN1X3O8OyKxP-ldFwjCA",
             authDomain: "mokmok-s.firebaseapp.com",
