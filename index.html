@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>biz,ikimiz. 🩵</title>
 
-    <link rel="apple-touch-icon" href="https://dl.dropboxusercontent.com/scl/fi/cvpg52fu61wz08k5rh7q7/IMG-20260214-WA0011.jpg?rlkey=ywind70zjx7wjfnbavyj6wp6g">
-    <link rel="icon" type="image/jpeg" href="https://dl.dropboxusercontent.com/scl/fi/cvpg52fu61wz08k5rh7q7/IMG-20260214-WA0011.jpg?rlkey=ywind70zjx7wjfnbavyj6wp6g">
+    <link rel="apple-touch-icon" href="https://dl.dropboxusercontent.com/scl/fi/97d1blixf9m9repa05ieg/395.jpg?rlkey=jzlawtskyb1bra6hhnu8t51xm&st=o15vjj78&raw=1">
+    <link rel="icon" type="image/jpeg" href="https://dl.dropboxusercontent.com/scl/fi/97d1blixf9m9repa05ieg/395.jpg?rlkey=jzlawtskyb1bra6hhnu8t51xm&st=o15vjj78&raw=1">
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -32,10 +32,10 @@
         }
         @keyframes bounce { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -10px); } }
 
-        /* Giriş Ekranı */
+        /* Giriş */
         #loginOverlay { position: fixed; inset: 0; background: #bae6fd; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: 0.5s; }
-        .login-card { background: white; padding: 2.5rem; border-radius: 3rem; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-        .user-btn { width: 100%; padding: 1.25rem; border-radius: 1.5rem; display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 1rem; transition: 0.2s; border: none; cursor: pointer; }
+        .login-card { background: white; padding: 2.5rem; border-radius: 3rem; width: 90%; max-width: 400px; text-align: center; }
+        .user-btn { width: 100%; padding: 1.25rem; border-radius: 1.5rem; display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 1rem; border: none; cursor: pointer; }
         .sky-btn { background: #f0f9ff; color: #0369a1; border: 2px solid #7dd3fc; }
         .pink-btn { background: #fdf2f8; color: #be185d; border: 2px solid #f9a8d4; }
         .password-input { width: 100%; padding: 1rem; border-radius: 1.25rem; border: 2px solid #e0f2fe; text-align: center; font-size: 1.5rem; outline: none; }
@@ -51,17 +51,17 @@
 
         /* Alt Nav & Input */
         .bottom-nav { position: fixed; bottom: 1.5rem; left: 2rem; right: 2rem; border-radius: 2.5rem; padding: 1rem; display: flex; justify-content: space-around; z-index: 50; }
-        .nav-btn { color: #bae6fd; font-size: 1.5rem; transition: 0.3s; background: none; border: none; cursor: pointer; }
+        .nav-btn { color: #bae6fd; font-size: 1.5rem; background: none; border: none; cursor: pointer; }
         .active-nav { color: #0ea5e9; transform: scale(1.2); }
         .input-container { position: fixed; bottom: 6.5rem; left: 1.5rem; right: 1.5rem; padding: 0.5rem; border-radius: 3rem; display: flex; align-items: center; }
-        .chat-input { flex: 1; background: transparent; padding: 0.8rem 1.2rem; outline: none; border: none; }
-        .send-btn { background: #0ea5e9; color: white; width: 3.5rem; height: 3.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; }
+        .chat-input { flex: 1; background: transparent; padding: 0.8rem 1.2rem; border: none; outline: none; }
+        .send-btn { background: #0ea5e9; color: white; width: 3.5rem; height: 3.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; }
 
         .shake { animation: shake 0.4s; }
         @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        
-        /* Yemek Sayfası */
+
+        /* Yemek Kartı */
         .food-card { padding: 2rem; border-radius: 3rem; text-align: center; margin: auto; width: 90%; max-width: 350px; }
         .meal-box { background: rgba(255,255,255,0.5); margin: 1.5rem 0; padding: 1.2rem; border-radius: 1.5rem; font-weight: bold; min-height: 80px; display: flex; align-items: center; justify-content: center; border: 1px dashed #7dd3fc; }
     </style>
@@ -69,7 +69,7 @@
 <body>
 
     <div id="pwaBadge" onclick="this.style.display='none'">
-        <i class="fas fa-plus-circle"></i> Ana Ekrana Eklemeyi Unutma Bibimmm! 🩵
+        <i class="fas fa-plus-circle"></i> Ana Ekrana Eklemeyi Unutma! 🩵
     </div>
 
     <div id="loginOverlay">
@@ -77,12 +77,10 @@
             <h1 class="text-5xl wasted-font text-sky-600 mb-8">biz,ikimiz. 🩵</h1>
             <div id="userSelection" class="space-y-4">
                 <button onclick="selectUser('MokmokBey')" class="user-btn sky-btn">
-                    <span>🐈 Mokmok Bey</span>
-                    <i class="fas fa-heart"></i>
+                    <span>🐈 Mokmok Bey</span> <i class="fas fa-heart"></i>
                 </button>
                 <button onclick="selectUser('Mokmokella')" class="user-btn pink-btn">
-                    <span>🐈‍⬛ Mokmokella Hanim</span>
-                    <i class="fas fa-heart"></i>
+                    <span>🐈‍⬛ Mokmokella Hanim</span> <i class="fas fa-heart"></i>
                 </button>
             </div>
             <div id="passwordArea" class="hidden space-y-4">
@@ -101,7 +99,7 @@
     <div id="chatPage" class="page active-page">
         <div id="notesList" class="messages-container no-scrollbar"></div>
         <div class="input-container glass">
-            <input id="noteInput" type="text" placeholder="Mokmoklanmaya başla istersen..." class="chat-input">
+            <input id="noteInput" type="text" placeholder="Mokmoklanmaya başla..." class="chat-input">
             <button onclick="saveNote()" class="send-btn"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
@@ -110,7 +108,7 @@
         <div class="food-card glass">
             <div class="text-6xl mb-4">😋</div>
             <h2 class="text-3xl wasted-font text-sky-700">ne yicez?</h2>
-            <div id="mealDisplay" class="meal-box italic text-sky-700">Mokmoklanman bekleniyor...</div>
+            <div id="mealDisplay" class="meal-box italic text-sky-700">Bekleniyor...</div>
             <button onclick="rollMeal()" class="login-btn">ACIKTIM BAKİİİYİMMM 😋😡</button>
         </div>
     </div>
@@ -121,7 +119,6 @@
     </nav>
 
     <script>
-        // PWA Kontrolü (Zaten ekliyse uyarıyı gizle)
         if (window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches) {
             document.getElementById('pwaBadge').style.display = 'none';
         }
@@ -135,7 +132,6 @@
             messagingSenderId: "133265891997",
             appId: "1:133265891997:web:cbcc57323e368eecd36a74"
         };
-
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
@@ -171,13 +167,8 @@
 
         function saveNote() {
             const input = document.getElementById('noteInput');
-            const text = input.value.trim();
-            if(!text) return;
-            database.ref('notlar').push().set({
-                sender: currentUser,
-                icerik: text,
-                tarih: Date.now()
-            });
+            if(!input.value.trim()) return;
+            database.ref('notlar').push().set({ sender: currentUser, icerik: input.value, tarih: Date.now() });
             input.value = "";
         }
 
@@ -186,13 +177,7 @@
                 const notesList = document.getElementById('notesList');
                 const data = snapshot.val();
                 if (data) {
-                    notesList.innerHTML = Object.values(data).map(n => {
-                        const isMe = n.sender === currentUser;
-                        return `<div class="message ${isMe ? 'sent' : 'received'}">
-                            <div class="text-[9px] font-bold opacity-70">${n.sender}</div>
-                            <div>${n.icerik}</div>
-                        </div>`;
-                    }).join('');
+                    notesList.innerHTML = Object.values(data).map(n => `<div class="message ${n.sender === currentUser ? 'sent' : 'received'}"><div class="text-[9px] font-bold opacity-70">${n.sender}</div><div>${n.icerik}</div></div>`).join('');
                     notesList.scrollTop = notesList.scrollHeight;
                 }
             });
@@ -202,9 +187,6 @@
             const yemekler = ["Pizza,Pizza,Pizza", "Böörrrgırr Kinngg", "Kremalı Mokmok Makarnası", "Lamacunnn", "Şuşşşhiii", "Popppeyeesss", "Köfte Patatessshhh"];
             document.getElementById('mealDisplay').innerText = yemekler[Math.floor(Math.random() * yemekler.length)];
         }
-
-        document.getElementById('passInput').onkeypress = (e) => { if(e.key === 'Enter') checkPassword(); };
-        document.getElementById('noteInput').onkeypress = (e) => { if(e.key === 'Enter') saveNote(); };
     </script>
 </body>
 </html>
