@@ -1,7 +1,7 @@
 {
   "name": "biz,ikimiz.",
-  "short_name": "biz,ikimiz.",
-  "start_url": "/index.html",
+  "short_name": "biz.ikimiz.",
+  "start_url": "/index.html?new=1",
   "display": "standalone",
   "background_color": "#bae6fd",
   "theme_color": "#0ea5e9",
