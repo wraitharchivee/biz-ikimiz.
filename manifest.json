@@ -1,0 +1,15 @@
+{
+  "name": "biz,ikimiz.",
+  "short_name": "biz,ikimiz.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#bae6fd",
+  "theme_color": "#0ea5e9",
+  "icons": [
+    {
+      "src": "https://dl.dropboxusercontent.com/scl/fi/97d1blixf9m9repa05ieg/395.jpg?rlkey=jzlawtskyb1bra6hhnu8t51xm&st=o15vjj78&raw=1",
+      "sizes": "512x512",
+      "type": "image/jpeg"
+    }
+  ]
+}
